@@ -19,3 +19,4 @@ export const fetchPhotos = query => {
     return response.json();
   });
 };
+
