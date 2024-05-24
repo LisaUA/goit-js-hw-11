@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import glob from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
@@ -8,10 +9,11 @@ export default defineConfig(({ command }) => {
     define: {
       [command === 'serve' ? 'global' : '_global']: {},
     },
-    root: 'src',
+    root: resolve(__dirname, 'src'),
+
     build: {
       sourcemap: true,
-
+      outDir: '../dist',
       rollupOptions: {
         input: glob.sync('./src/*.html'),
         output: {
@@ -23,7 +25,6 @@ export default defineConfig(({ command }) => {
           entryFileNames: 'commonHelpers.js',
         },
       },
-      outDir: '../dist',
     },
     plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
   };
